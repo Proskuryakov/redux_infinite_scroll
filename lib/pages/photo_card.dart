@@ -1,6 +1,8 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
 import 'package:redux_infinite_scroll/models/item/photo.dart';
+import 'package:redux_infinite_scroll/pages/like_button.dart';
+import 'package:redux_infinite_scroll/pages/photo_full_size_page.dart';
 
 class PhotoCard extends StatelessWidget {
   final PhotoItem photoItem;
@@ -10,6 +12,14 @@ class PhotoCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Material(
+        child: InkWell(
+      splashColor: Colors.grey,
+      onTap: () {
+        Navigator.push(
+            context,
+            MaterialPageRoute(
+                builder: (context) => PhotoFullSizePage(photoItem)));
+      },
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           child: Container(
@@ -32,15 +42,15 @@ class PhotoCard extends StatelessWidget {
                         imageUrl: photoItem.imageLink!,
                         placeholder: (context, url) =>
                             const CircularProgressIndicator(
-                              color: Colors.black,
-                            ),
+                          color: Colors.black,
+                        ),
                         errorWidget: (context, url, error) =>
                             const Icon(Icons.error),
                       ),
                     ),
                   ),
                   Container(
-                    padding: const EdgeInsets.symmetric(horizontal: 0),
+                      padding: const EdgeInsets.symmetric(horizontal: 0),
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
@@ -49,19 +59,13 @@ class PhotoCard extends StatelessWidget {
                             style: Theme.of(context).textTheme.titleLarge,
                           ),
                           Spacer(),
-                          IconButton(
-                            splashRadius: 20,
-                            icon: const Icon(
-                                Icons.favorite_border
-                            ),
-                            onPressed: () {},
-                          ),
+                          PhotoLikeButton(photoItem: photoItem),
                         ],
                       )),
                 ],
               ),
             ),
           )),
-    );
+    ));
   }
 }
