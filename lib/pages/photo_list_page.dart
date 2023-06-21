@@ -34,26 +34,20 @@ class ImagesListState extends State {
                     if (state.photos.isEmpty) {
                       store.dispatch(loadNextPhotoPages);
                     }
-                    return GridView.builder(
-                      scrollDirection: Axis.vertical,
-                      itemCount: state.photos.length,
-                      itemBuilder: (context, index) {
-                        if (index == state.photos.length - pageSize) {
-                          store.dispatch(loadNextPhotoPage);
-                        }
-                        return GestureDetector(
-                          child: PhotoCard(
-                            photoItem: state.photos[index],
-                          ),
-                        );
-                      },
-                      gridDelegate:
-                          const SliverGridDelegateWithMaxCrossAxisExtent(
-                              maxCrossAxisExtent: 350,
-                              mainAxisExtent: 300,
-                              crossAxisSpacing: 10,
-                              mainAxisSpacing: 10),
-                    );
+                    return ListView.builder(
+                        padding: const EdgeInsets.only(top: 15),
+                        scrollDirection: Axis.vertical,
+                        itemCount: state.photos.length,
+                        itemBuilder: (context, index) {
+                          if (index == state.photos.length - pageSize) {
+                            store.dispatch(loadNextPhotoPage);
+                          }
+                          return GestureDetector(
+                            child: PhotoCard(
+                              photoItem: state.photos[index],
+                            ),
+                          );
+                        });
                   },
                 ),
               )
