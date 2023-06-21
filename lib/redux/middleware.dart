@@ -24,7 +24,8 @@ ThunkAction<AppState> loadNextPhotoPage = (Store<AppState> store) async {
 
 ThunkAction<AppState> loadNextPhotoPages = (Store<AppState> store) async {
   int pageCount = 3;
-  PhotoPage photoPage = await repository.getPageByCount(store.state.page, pageCount);
+  PhotoPage photoPage =
+      await repository.getPageByCount(store.state.page, pageCount);
 
   List<PhotoItem> result = [];
   result.addAll(store.state.photos);
