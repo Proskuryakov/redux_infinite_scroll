@@ -10,3 +10,14 @@ class LoadPhotosAction {
 
   List<PhotoItem> get photos => _photos;
 }
+
+class LikeAction {
+  final PhotoItem _photo;
+  final int _index;
+
+  LikeAction(this._photo, this._index);
+
+  int get index => _index;
+
+  PhotoItem get photo => _photo;
+}

@@ -6,8 +6,9 @@ import 'package:redux_infinite_scroll/pages/photo_full_size_page.dart';
 
 class PhotoCard extends StatelessWidget {
   final PhotoItem photoItem;
+  final int photoIndex;
 
-  const PhotoCard({super.key, required this.photoItem});
+  const PhotoCard(this.photoItem, this.photoIndex, {super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +19,8 @@ class PhotoCard extends StatelessWidget {
         Navigator.push(
             context,
             MaterialPageRoute(
-                builder: (context) => PhotoFullSizePage(photoItem)));
+                builder: (context) =>
+                    PhotoFullSizePage(photoItem, photoIndex)));
       },
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
@@ -29,7 +31,8 @@ class PhotoCard extends StatelessWidget {
                     Border.all(color: Colors.grey.withOpacity(0.5), width: 1)),
             margin: const EdgeInsets.only(bottom: 10),
             child: Padding(
-              padding: const EdgeInsets.all(15),
+              // padding: const EdgeInsets.all(15),
+              padding: const EdgeInsets.fromLTRB(15, 15, 15, 5),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
@@ -54,12 +57,13 @@ class PhotoCard extends StatelessWidget {
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(
-                            photoItem.title!,
-                            style: Theme.of(context).textTheme.titleLarge,
-                          ),
+                          Text(photoItem.title!,
+                              style:
+                                  TextStyle(fontSize: 20, color: Colors.black54)
+                              // Theme.of(context).textTheme.titleLarge,
+                              ),
                           Spacer(),
-                          PhotoLikeButton(photoItem: photoItem),
+                          PhotoLikeButton(photoItem, photoIndex),
                         ],
                       )),
                 ],

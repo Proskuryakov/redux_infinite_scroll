@@ -43,9 +43,7 @@ class ImagesListState extends State {
                             store.dispatch(loadNextPhotoPage);
                           }
                           return GestureDetector(
-                            child: PhotoCard(
-                              photoItem: state.photos[index],
-                            ),
+                            child: PhotoCard(state.photos[index], index),
                           );
                         });
                   },
