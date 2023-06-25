@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:redux_infinite_scroll/redux/actions.dart';
 
 import '../models/item/photo.dart';
@@ -12,6 +14,9 @@ AppState appReducer(AppState state, dynamic action) {
   }
   if (action is OpenPhotoAction) {
     return _openPhoto(state, action);
+  }
+  if (action is RefreshAction) {
+    return _initRandomState();
   }
 
   return state;
@@ -31,4 +36,9 @@ AppState _likeImage(AppState state, LikeAction action) {
 
 AppState _openPhoto(AppState state, OpenPhotoAction action) {
   return AppState.copy(state, action.index);
+}
+
+AppState _initRandomState() {
+  int page = Random().nextInt(5);
+  return AppState.init(List.empty(), page);
 }

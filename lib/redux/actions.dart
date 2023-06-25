@@ -29,3 +29,8 @@ class OpenPhotoAction {
 
   int get index => _index;
 }
+
+
+class RefreshAction {
+  RefreshAction();
+}

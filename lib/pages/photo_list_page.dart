@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_infinite_scroll/config/values.dart';
 import 'package:redux_infinite_scroll/pages/photo_card.dart';
+import 'package:redux_infinite_scroll/redux/actions.dart';
 import 'package:redux_infinite_scroll/redux/middleware.dart';
 
 import '../redux/state.dart';
@@ -21,7 +22,9 @@ class ImagesListState extends State {
         appBar: AppBar(
           title: const Text(photoListTitle),
         ),
-        body: Center(
+        body: RefreshIndicator(
+          onRefresh: () => _refresh(context),
+          child: Center(
             child: SizedBox(
                 child: Column(
                     mainAxisAlignment: MainAxisAlignment.start,
@@ -49,7 +52,16 @@ class ImagesListState extends State {
                   },
                 ),
               )
-            ]))));
+            ])
+            )
+          )
+        )
+    );
     //
+  }
+
+  Future<void> _refresh(BuildContext context) async {
+    var store = StoreProvider.of<AppState>(context);
+    store.dispatch(RefreshAction());
   }
 }
