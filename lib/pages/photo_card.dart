@@ -51,10 +51,10 @@ class PhotoCard extends StatelessWidget {
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(photoItem.title!, style: TextStyle(fontSize: 20, color: Colors.black54)
+                          Text(photoItem.title!, style: const TextStyle(fontSize: 20, color: Colors.black54)
                               // Theme.of(context).textTheme.titleLarge,
                               ),
-                          Spacer(),
+                          const Spacer(),
                           PhotoLikeButton(photoItem, photoIndex),
                         ],
                       )),

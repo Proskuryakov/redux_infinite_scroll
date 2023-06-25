@@ -13,7 +13,6 @@ class Repository {
   }
 
   Future<PhotoPage> nextPage(int page) async {
-    print("Load new page $page");
     final url = Uri.parse(
         "$api/?method=$method&api_key=$key&format=$format&user_id=$userId&page=$page&per_page=$pageSize");
     final response = await http.get(url);

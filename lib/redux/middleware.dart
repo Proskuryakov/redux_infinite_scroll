@@ -17,7 +17,6 @@ ThunkAction<AppState> loadNextPhotoPage = (Store<AppState> store) async {
   for (var p in photoPage.photo!) {
     result.add(PhotoItem.fromPhoto(p));
   }
-  print("Result lengt ${result.length}");
 
   store.dispatch(LoadPhotosAction(result, store.state.page + 1));
 };
