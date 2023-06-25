@@ -22,7 +22,11 @@
 
 
 ### Видеообзор приложения:
+[Демо видео](https://drive.google.com/file/d/1g6b5Na7yR1r5-vGrhpVsW7YO-5xjt_ZF/view?usp=sharing)
+
+Видео записано с устройства Google Pixel 4, на которое было установлено собранное приложение
 
 ### Дополнительный ссылки:
 [Таблица требований и результатов](requirements.md)
+
 [APK файл](app-release.apk)
