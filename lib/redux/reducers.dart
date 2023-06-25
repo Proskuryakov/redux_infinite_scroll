@@ -39,6 +39,6 @@ AppState _openPhoto(AppState state, OpenPhotoAction action) {
 }
 
 AppState _initRandomState() {
-  int page = Random().nextInt(5);
+  int page = Random().nextInt(15);
   return AppState.init(List.empty(), page);
 }
