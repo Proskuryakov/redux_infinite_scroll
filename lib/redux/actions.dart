@@ -21,3 +21,11 @@ class LikeAction {
 
   PhotoItem get photo => _photo;
 }
+
+class OpenPhotoAction {
+  final int _index;
+
+  OpenPhotoAction(this._index);
+
+  int get index => _index;
+}

@@ -10,12 +10,15 @@ AppState appReducer(AppState state, dynamic action) {
   if (action is LikeAction) {
     return _likeImage(state, action);
   }
+  if (action is OpenPhotoAction) {
+    return _openPhoto(state, action);
+  }
 
   return state;
 }
 
 AppState _loadPhotos(LoadPhotosAction action) {
-  return AppState(action.photos, action.page);
+  return AppState.init(action.photos, action.page);
 }
 
 AppState _likeImage(AppState state, LikeAction action) {
@@ -23,5 +26,9 @@ AppState _likeImage(AppState state, LikeAction action) {
   PhotoItem photo = PhotoItem(
       action.photo.title, action.photo.imageLink, !action.photo.isLicked);
   result[action.index] = photo;
-  return AppState(result, state.page);
+  return AppState(result, state.page, state.currentPhotoIndex);
+}
+
+AppState _openPhoto(AppState state, OpenPhotoAction action) {
+  return AppState.copy(state, action.index);
 }

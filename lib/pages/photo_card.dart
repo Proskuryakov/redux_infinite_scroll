@@ -1,8 +1,12 @@
 import 'package:cached_network_image/cached_network_image.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_redux/flutter_redux.dart';
 import 'package:redux_infinite_scroll/models/item/photo.dart';
 import 'package:redux_infinite_scroll/pages/like_button.dart';
 import 'package:redux_infinite_scroll/pages/photo_full_size_page.dart';
+import 'package:redux_infinite_scroll/redux/actions.dart';
+
+import '../redux/state.dart';
 
 class PhotoCard extends StatelessWidget {
   final PhotoItem photoItem;
@@ -15,20 +19,13 @@ class PhotoCard extends StatelessWidget {
     return Material(
         child: InkWell(
       splashColor: Colors.grey,
-      onTap: () {
-        Navigator.push(
-            context,
-            MaterialPageRoute(
-                builder: (context) =>
-                    PhotoFullSizePage(photoItem, photoIndex)));
-      },
+      onTap: () => _openFullScreenPhoto(context),
       child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 0),
           child: Container(
             decoration: BoxDecoration(
                 borderRadius: const BorderRadius.all(Radius.circular(15)),
-                border:
-                    Border.all(color: Colors.grey.withOpacity(0.5), width: 1)),
+                border: Border.all(color: Colors.grey.withOpacity(0.5), width: 1)),
             margin: const EdgeInsets.only(bottom: 10),
             child: Padding(
               // padding: const EdgeInsets.all(15),
@@ -37,18 +34,15 @@ class PhotoCard extends StatelessWidget {
                 crossAxisAlignment: CrossAxisAlignment.stretch,
                 children: [
                   Container(
-                    decoration: const BoxDecoration(
-                        borderRadius: BorderRadius.all(Radius.circular(15))),
+                    decoration: const BoxDecoration(borderRadius: BorderRadius.all(Radius.circular(15))),
                     child: ClipRRect(
                       borderRadius: BorderRadius.circular(10),
                       child: CachedNetworkImage(
                         imageUrl: photoItem.imageLink!,
-                        placeholder: (context, url) =>
-                            const CircularProgressIndicator(
+                        placeholder: (context, url) => const CircularProgressIndicator(
                           color: Colors.black,
                         ),
-                        errorWidget: (context, url, error) =>
-                            const Icon(Icons.error),
+                        errorWidget: (context, url, error) => const Icon(Icons.error),
                       ),
                     ),
                   ),
@@ -57,9 +51,7 @@ class PhotoCard extends StatelessWidget {
                       child: Row(
                         // mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
-                          Text(photoItem.title!,
-                              style:
-                                  TextStyle(fontSize: 20, color: Colors.black54)
+                          Text(photoItem.title!, style: TextStyle(fontSize: 20, color: Colors.black54)
                               // Theme.of(context).textTheme.titleLarge,
                               ),
                           Spacer(),
@@ -71,5 +63,11 @@ class PhotoCard extends StatelessWidget {
             ),
           )),
     ));
+  }
+
+  void _openFullScreenPhoto(BuildContext context) {
+    var store = StoreProvider.of<AppState>(context);
+    store.dispatch(OpenPhotoAction(photoIndex));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => const PhotoFullSizePage()));
   }
 }
